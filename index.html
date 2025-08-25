@@ -935,46 +935,6 @@
             line-height: 1.6;
         }
 
-        .implementation-timeline {
-            margin-bottom: 60px;
-        }
-
-        .timeline {
-            display: flex;
-            justify-content: space-around;
-            gap: 20px;
-        }
-
-        .timeline-phase {
-            background: #f8f9fa;
-            padding: 20px 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            text-align: center;
-            flex: 1;
-        }
-
-        .phase-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1f4e79;
-            margin-bottom: 10px;
-        }
-
-        .phase-content h4 {
-            font-size: 1.4rem;
-            font-weight: 500;
-            line-height: 1.2;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .phase-content p {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.6;
-        }
-
         .admin-cta {
             background: #1f4e79;
             color: white;
@@ -1413,49 +1373,6 @@
                         <h4>Compliance Monitoring</h4>
                         <p>Automated audits, policy enforcement, risk assessment</p>
                     </div>
-
-                    <div class="tool-item">
-                        <div class="tool-icon">💼</div>
-                        <h4>Client Management</h4>
-                        <p>CRM integration, care planning, communication tools</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="implementation-timeline">
-                <h3 class="timeline-title">Implementation Roadmap</h3>
-                <div class="timeline">
-                    <div class="timeline-phase">
-                        <div class="phase-number">1</div>
-                        <div class="phase-content">
-                            <h4>Foundation (Weeks 1-4)</h4>
-                            <p>Modern framework setup, database architecture, basic admin interface</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-phase">
-                        <div class="phase-number">2</div>
-                        <div class="phase-content">
-                            <h4>Core Features (Weeks 5-8)</h4>
-                            <p>User management, compliance modules, basic automation</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-phase">
-                        <div class="phase-number">3</div>
-                        <div class="phase-content">
-                            <h4>Advanced Tools (Weeks 9-12)</h4>
-                            <p>Business intelligence, advanced workflows, mobile apps</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-phase">
-                        <div class="phase-number">4</div>
-                        <div class="phase-content">
-                            <h4>Launch & Optimization (Weeks 13-16)</h4>
-                            <p>Testing, compliance verification, performance optimization</p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -1700,7 +1617,7 @@
             }
 
             // Add scroll-triggered animations for admin transformation elements
-            const adminElements = document.querySelectorAll('.transformation-card, .framework-item, .compliance-card, .tool-item, .timeline-phase');
+            const adminElements = document.querySelectorAll('.transformation-card, .framework-item, .compliance-card, .tool-item');
             if (adminElements.length > 0) {
                 const adminObserver = new IntersectionObserver((entries) => {
                     entries.forEach((entry, index) => {
