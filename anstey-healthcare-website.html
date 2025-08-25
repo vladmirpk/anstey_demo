@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anstey Healthcare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        /* Top Navigation Tabs - Exact replica */
+        .top-nav {
+            background: #1f4e79;
+            display: flex;
+            position: relative;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            border-right: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-tab:first-child {
+            background: rgba(255,255,255,0.1);
+            color: #ff6b6b;
+        }
+
+        .nav-tab:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Search Bar Container - Exact replica */
+        .search-container {
+            margin-left: auto;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .search-input {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+            font-size: 14px;
+            width: 200px;
+            background: white;
+        }
+
+        .search-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .search-btn:hover {
+            background: #ff5252;
+        }
+
+        /* Main Header - Exact replica */
+        .main-header {
+            background: white;
+            padding: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            justify-content: space-between;
+        }
+
+        /* Logo - Exact replica style */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            background: #1f4e79;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-circle::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .logo-circle::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #1f4e79;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .company-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1f4e79;
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        /* Main Navigation - Exact replica */
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-item {
+            position: relative;
+            color: #1f4e79;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            color: #ff6b6b;
+        }
+
+        .nav-item::after {
+            content: '▼';
+            font-size: 10px;
+            opacity: 0.7;
+        }
+
+        .nav-item.no-dropdown::after {
+            display: none;
+        }
+
+        .register-btn {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .register-btn:hover {
+            background: #ff5252;
+            transform: translateY(-1px);
+        }
+
+        /* Dropdown Menus - Exact replica */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: #f8f9fa;
+            color: #ff6b6b;
+        }
+
+        /* Hero Section - Exact replica */
+        .hero {
+            background: linear-gradient(135deg, #1f4e79 0%, #2d5aa0 100%);
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 40px 20px;
+            align-items: center;
+        }
+
+        .hero-content {
+            color: white;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: rgba(255,255,255,0.95);
+        }
+
+        .hero-underline {
+            width: 100px;
+            height: 3px;
+            background: #ff6b6b;
+            margin-bottom: 32px;
+        }
+
+        .hero-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+        }
+
+        .hero-image {
+            position: relative;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23e8f4f8" width="400" height="300"/><circle cx="120" cy="100" r="30" fill="%23ffd700"/><rect x="50" y="180" width="80" height="60" rx="10" fill="%23ddd"/><rect x="200" y="120" width="150" height="100" rx="15" fill="%23f0f0f0"/><circle cx="300" cy="80" r="20" fill="%23ffb6c1"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .placeholder-text {
+            color: #666;
+            font-size: 18px;
+            font-weight: 500;
+            z-index: 1;
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        /* Responsive Design - Same as original */
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-wrap: wrap;
+            }
+
+            .search-container {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+
+            .header-container {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .main-nav {
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .nav-item {
+                font-size: 14px;
+            }
+        }
+
+        /* Job Search Dropdown */
+        .job-dropdown {
+            min-width: 250px;
+        }
+
+        .job-dropdown .dropdown-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .job-dropdown .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Working for us dropdown */
+        .working-dropdown {
+            min-width: 220px;
+        }
+
+        /* Proposal Section - Our Analysis & Recommendations */
+        .proposal {
+            background: #f0f0f0;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .proposal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .proposal-header {
+            margin-bottom: 60px;
+        }
+
+        .proposal-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #1f4e79;
+        }
+
+        .proposal-underline {
+            width: 100px;
+            height: 3px;
+            background: #ff6b6b;
+            margin-bottom: 32px;
+        }
+
+        .proposal-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .proposal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .proposal-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .proposal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #1f4e79;
+        }
+
+        .card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card-list li {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .proposal-cta {
+            background: #1f4e79;
+            color: white;
+            padding: 60px 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #ff5252;
+        }
+
+        /* Enhanced Graphics & Blog Showcase */
+        .showcase {
+            background: #f8f9fa;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .showcase-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .showcase-header {
+            margin-bottom: 60px;
+        }
+
+        .showcase-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #1f4e79;
+        }
+
+        .showcase-underline {
+            width: 100px;
+            height: 3px;
+            background: #ff6b6b;
+            margin-bottom: 32px;
+        }
+
+        .showcase-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .showcase-item {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .showcase-image {
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #666;
+        }
+
+        .placeholder-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            opacity: 0.7;
+        }
+
+        .placeholder-text {
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .showcase-item-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            color: #1f4e79;
+        }
+
+        .showcase-item-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .blog-preview {
+            background: #f0f0f0;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .blog-preview-title {
+            font-size: 1.8rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #1f4e79;
+        }
+
+        .blog-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-tag {
+            background: #1f4e79;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .blog-example {
+            display: flex;
+            gap: 20px;
+        }
+
+        .blog-post {
+            display: flex;
+            gap: 15px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .post-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .post-placeholder {
+            font-size: 40px;
+            color: #ccc;
+        }
+
+        .post-content {
+            flex-grow: 1;
+        }
+
+        .post-category {
+            font-size: 12px;
+            color: #ff6b6b;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .post-title {
+            font-size: 1.4rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            color: #1f4e79;
+        }
+
+        .post-excerpt {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .post-meta {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .post-date {
+            font-weight: 600;
+        }
+
+        .post-author {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation - Exact replica -->
+    <nav class="top-nav">
+        <a href="#" class="nav-tab">Nurses and HCAs</a>
+        <a href="#" class="nav-tab">Customers and clients</a>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search this site...">
+            <button class="search-btn">Search</button>
+        </div>
+    </nav>
+
+    <!-- Main Header - Exact replica -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-circle"></div>
+                <div class="logo-text">
+                    <div class="company-name">Anstey<br>Healthcare</div>
+                    <div class="tagline">Excellence in Community Care</div>
+                </div>
+            </div>
+
+            <nav class="main-nav">
+                <div class="nav-item">
+                    Job search
+                    <div class="dropdown job-dropdown">
+                        <a href="#" class="dropdown-item">View all jobs</a>
+                        <a href="#" class="dropdown-item">Job roles</a>
+                        <a href="#" class="dropdown-item">Adult Nursing</a>
+                        <a href="#" class="dropdown-item">Paediatric Nursing</a>
+                        <a href="#" class="dropdown-item">Healthcare Assistant (HCA)</a>
+                        <a href="#" class="dropdown-item">Learning Disabilities and Autism Nursing</a>
+                        <a href="#" class="dropdown-item">Learning Disabilities and Autism Support Worker</a>
+                        <a href="#" class="dropdown-item">Mental Health Nursing</a>
+                        <a href="#" class="dropdown-item">Mental Health Support Worker</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    Working for us
+                    <div class="dropdown working-dropdown">
+                        <a href="#" class="dropdown-item">Working for Anstey Healthcare</a>
+                        <a href="#" class="dropdown-item">Healthcare assistant pay rates</a>
+                        <a href="#" class="dropdown-item">Nurse pay rates</a>
+                        <a href="#" class="dropdown-item">Specialisms</a>
+                        <a href="#" class="dropdown-item">Refer a friend</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    About
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Our story</a>
+                        <a href="#" class="dropdown-item">Leadership team</a>
+                        <a href="#" class="dropdown-item">Awards & recognition</a>
+                        <a href="#" class="dropdown-item">Locations</a>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    Our services
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Adult care</a>
+                        <a href="#" class="dropdown-item">Paediatric care</a>
+                        <a href="#" class="dropdown-item">Learning disabilities</a>
+                        <a href="#" class="dropdown-item">Mental health</a>
+                        <a href="#" class="dropdown-item">Complex care</a>
+                    </div>
+                </div>
+
+                <a href="#" class="nav-item no-dropdown">Contact</a>
+
+                <a href="#" class="register-btn">Register now</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section - Exact replica -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Anstey Healthcare</h1>
+                <div class="hero-underline"></div>
+                <p class="hero-text">
+                    Anstey Healthcare delivers exceptional care at home services to adults and children across England and Wales with clinically complex care requirements, learning disabilities, autism, and mental health conditions. Learn more about our care services and how we can support you below, or discover our latest healthcare professional jobs near you.
+                </p>
+            </div>
+            
+            <div class="hero-image">
+                <div class="placeholder-text">
+                    Healthcare Professional<br>& Client Image
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proposal Section - Our Analysis & Recommendations -->
+    <section class="proposal">
+        <div class="proposal-container">
+            <div class="proposal-header">
+                <h2 class="proposal-title">Our Proposal: Site Enhancement Analysis</h2>
+                <div class="proposal-underline"></div>
+                <p class="proposal-subtitle">Based on our benchmarking analysis against Thornbury Community Services and other leading healthcare providers, here are our key findings and improvement recommendations</p>
+            </div>
+
+            <div class="proposal-grid">
+                <div class="proposal-card">
+                    <div class="card-icon">🔍</div>
+                    <h3 class="card-title">Benchmarking Analysis</h3>
+                    <ul class="card-list">
+                        <li>Thornbury Community Services (20+ years)</li>
+                        <li>Leading healthcare providers</li>
+                        <li>Industry best practices</li>
+                        <li>Competitive advantage assessment</li>
+                        <li>User experience benchmarking</li>
+                    </ul>
+                </div>
+
+                <div class="proposal-card">
+                    <div class="card-icon">🎨</div>
+                    <h3 class="card-title">Visual & Content Enhancements</h3>
+                    <ul class="card-list">
+                        <li>Professional healthcare imagery</li>
+                        <li>Well-structured blog system</li>
+                        <li>Enhanced visual storytelling</li>
+                        <li>Infographic and data visualization</li>
+                        <li>Professional photography integration</li>
+                    </ul>
+                </div>
+
+                <div class="proposal-card">
+                    <div class="card-icon">✨</div>
+                    <h3 class="card-title">Proposed Improvements</h3>
+                    <ul class="card-list">
+                        <li>Enhanced visual storytelling</li>
+                        <li>Improved user journey flow</li>
+                        <li>Better mobile responsiveness</li>
+                        <li>Professional micro-interactions</li>
+                        <li>Enhanced accessibility features</li>
+                    </ul>
+                </div>
+
+                <div class="proposal-card">
+                    <div class="card-icon">📱</div>
+                    <h3 class="card-title">Competitive Advantages</h3>
+                    <ul class="card-list">
+                        <li>Modern, engaging interface</li>
+                        <li>Superior user experience</li>
+                        <li>Enhanced mobile optimization</li>
+                        <li>Professional animations</li>
+                        <li>Better visual hierarchy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="proposal-cta">
+                <h3 class="cta-title">Ready to Outperform the Competition?</h3>
+                <p class="cta-text">Let's implement these improvements to create a more engaging, accessible, and professional healthcare website that positions Anstey Healthcare ahead of industry leaders like Thornbury Community Services.</p>
+                <button class="cta-button">View Detailed Analysis</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Graphics & Blog Showcase -->
+    <section class="showcase">
+        <div class="showcase-container">
+            <div class="showcase-header">
+                <h2 class="showcase-title">Enhanced Graphics & Content Structure</h2>
+                <div class="showcase-underline"></div>
+                <p class="showcase-subtitle">See how we can transform your content with professional imagery and well-structured blog systems</p>
+            </div>
+
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <div class="showcase-image">
+                        <div class="image-placeholder">
+                            <span class="placeholder-icon">🏥</span>
+                            <span class="placeholder-text">Professional Healthcare Photography</span>
+                        </div>
+                    </div>
+                    <h3 class="showcase-item-title">Professional Imagery</h3>
+                    <p class="showcase-item-text">High-quality healthcare photography that builds trust and professionalism</p>
+                </div>
+
+                <div class="showcase-item">
+                    <div class="showcase-image">
+                        <div class="image-placeholder">
+                            <span class="placeholder-icon">📊</span>
+                            <span class="placeholder-text">Infographics & Data Viz</span>
+                        </div>
+                    </div>
+                    <h3 class="showcase-item-title">Data Visualization</h3>
+                    <p class="showcase-item-text">Clear, engaging infographics that make complex information accessible</p>
+                </div>
+
+                <div class="showcase-item">
+                    <div class="showcase-image">
+                        <div class="image-placeholder">
+                            <span class="placeholder-icon">📝</span>
+                            <span class="placeholder-text">Structured Blog System</span>
+                        </div>
+                    </div>
+                    <h3 class="showcase-item-title">Blog Structure</h3>
+                    <p class="showcase-item-text">Well-organized content with categories, tags, and search functionality</p>
+                </div>
+            </div>
+
+            <div class="blog-preview">
+                <h3 class="blog-preview-title">Blog System Preview</h3>
+                <div class="blog-categories">
+                    <div class="category-tag">Nursing</div>
+                    <div class="category-tag">Healthcare</div>
+                    <div class="category-tag">Mental Health</div>
+                    <div class="category-tag">Learning Disabilities</div>
+                    <div class="category-tag">Career Tips</div>
+                    <div class="category-tag">Industry News</div>
+                </div>
+                <div class="blog-example">
+                    <div class="blog-post">
+                        <div class="post-image">
+                            <div class="post-placeholder">📸</div>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-category">Nursing</div>
+                            <h4 class="post-title">What Does a Paediatric Nurse Do?</h4>
+                            <p class="post-excerpt">Paediatric nurses play a vital role in providing care to children and young adults. They have a range of responsibilities and can work in...</p>
+                            <div class="post-meta">
+                                <span class="post-date">14th April 2025</span>
+                                <span class="post-author">By Emma Woods</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced dropdown functionality - same as original
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                const dropdown = item.querySelector('.dropdown');
+                if (dropdown) {
+                    let hoverTimer;
+                    
+                    item.addEventListener('mouseenter', function() {
+                        clearTimeout(hoverTimer);
+                        dropdown.style.opacity = '1';
+                        dropdown.style.visibility = 'visible';
+                        dropdown.style.transform = 'translateY(0)';
+                    });
+                    
+                    item.addEventListener('mouseleave', function() {
+                        hoverTimer = setTimeout(() => {
+                            dropdown.style.opacity = '0';
+                            dropdown.style.visibility = 'hidden';
+                            dropdown.style.transform = 'translateY(-10px)';
+                        }, 150);
+                    });
+                }
+            });
+
+            // Top nav tab switching
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active state from all tabs
+                    navTabs.forEach(t => {
+                        t.style.background = 'transparent';
+                        t.style.color = 'white';
+                    });
+                    
+                    // Add active state to clicked tab
+                    this.style.background = 'rgba(255,255,255,0.1)';
+                    this.style.color = '#ff6b6b';
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
+            
+            searchBtn.addEventListener('click', function() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    alert(`Searching for: "${query}"`);
+                }
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchBtn.click();
+                }
+            });
+
+            // Register button interaction
+            const registerBtn = document.querySelector('.register-btn');
+            registerBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Registration functionality would be implemented here');
+            });
+
+            // Proposal section functionality
+            const ctaButton = document.querySelector('.cta-button');
+            if (ctaButton) {
+                ctaButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Add click effect
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                    
+                    // Show detailed benchmarking analysis
+                    alert('📊 Detailed Benchmarking Analysis\n\n' +
+                          'Based on our analysis of multiple healthcare providers:\n\n' +
+                          '🏥 COMPETITIVE ANALYSIS:\n' +
+                          '• Thornbury Community Services: Established 20+ years\n' +
+                          '• Bupa Healthcare: Premium service positioning\n' +
+                          '• NHS Digital: Government healthcare standards\n' +
+                          '• Private healthcare providers: Market leaders\n' +
+                          '• International healthcare websites: Global best practices\n\n' +
+                          '🎨 VISUAL & CONTENT ENHANCEMENTS:\n' +
+                          '• Professional healthcare photography\n' +
+                          '• Well-structured blog system with categories\n' +
+                          '• Infographics and data visualization\n' +
+                          '• Enhanced visual storytelling\n' +
+                          '• Professional imagery integration\n\n' +
+                          '🎯 OPPORTUNITY AREAS:\n' +
+                          '• Modern, engaging user interface\n' +
+                          '• Enhanced mobile experience\n' +
+                          '• Interactive elements and animations\n' +
+                          '• Improved visual storytelling\n' +
+                          '• Better user journey optimization\n\n' +
+                          '✨ OUR COMPETITIVE ADVANTAGES:\n' +
+                          '• Cutting-edge design and UX\n' +
+                          '• Superior mobile responsiveness\n' +
+                          '• Professional micro-interactions\n' +
+                          '• Enhanced accessibility features\n' +
+                          '• Modern web development standards\n\n' +
+                          '📈 EXPECTED OUTCOMES:\n' +
+                          '• Improved user engagement\n' +
+                          '• Better conversion rates\n' +
+                          '• Enhanced professional credibility\n' +
+                          '• Competitive market positioning\n' +
+                          '• Future-proof digital foundation\n\n' +
+                          'Ready to implement these improvements and outperform the competition?');
+                });
+            }
+
+            // Add scroll-triggered animations for proposal cards
+            const proposalCards = document.querySelectorAll('.proposal-card');
+            if (proposalCards.length > 0) {
+                const cardObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, index * 100);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                proposalCards.forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    cardObserver.observe(card);
+                });
+            }
+
+            // Add scroll-triggered animations for showcase items
+            const showcaseItems = document.querySelectorAll('.showcase-item');
+            if (showcaseItems.length > 0) {
+                const showcaseObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, index * 150);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                showcaseItems.forEach(item => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(30px)';
+                    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    showcaseObserver.observe(item);
+                });
+            }
+
+            // Add interactive functionality to showcase items
+            showcaseItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const title = this.querySelector('.showcase-item-title').textContent;
+                    const text = this.querySelector('.showcase-item-text').textContent;
+                    
+                    alert(`🎯 ${title}\n\n${text}\n\nThis would showcase:\n• Professional implementation examples\n• Before/after comparisons\n• Technical specifications\n• Implementation timeline\n• Expected outcomes`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
